@@ -1,0 +1,4 @@
+SpeechExtraction：人物言论提取
+GenerationSummarize：文本摘要
+SentimentClassificate：细粒度情感分类
+ChatBot：自动回复机器人

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<!-- saved from url=(0042)http://39.100.3.165:8567/SpeechExtraction/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>新闻言论提取</title>
+	<link rel="stylesheet" href="../static/css/bootstrap.min.css">
+
+	<link rel="stylesheet" type="text/css" href="../static/css/pro1.css">
+
+
+</head>
+<body>
+<!--	<div class="pop_con" id="pop_con" style="display: none;">-->
+<!--		<div class="popup">-->
+<!--			<p id="pop_tip">模型载入中···</p>-->
+<!--			<div class="progress">-->
+<!--				<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--		<div class="mask"></div>-->
+<!--	</div>-->
+
+	<!-- 导航栏 -->
+	<div class="navbar navbar-default navbar-static-top navbar-fixed-top">
+		<div class="container">
+			<!-- 导航条头部元素 -->
+			<div class="navbar-header">
+				<button class="navbar-toggle" data-toggle="collapse" data-target="#my_menu">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a href="http://39.100.3.165:8567/SpeechExtraction/#" class="navbar-brand">新闻言论自动提取</a>
+			</div>
+		</div>
+	</div><!-- 导航栏 -->
+
+	<br>
+	<br>
+	
+	<!-- 文本输入栏 -->
+	<div class="container">
+		<div class="jumbotron firstpart">
+			<div class="row">
+				<div>
+					<textarea name="input_text" class="my-input" placeholder="请输入你要处理的内容" rows="10" style="resize: none;overflow: auto; background-color: #eee;"></textarea>
+				</div>
+
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-6">
+							<input class="my-buttton" type="reset" name="" value="随机获取文本">
+						</div>
+	
+						<div class="col-lg-6">							
+							<div style="text-align:right;">	
+								<input class="my-buttton" type="reset" name="" value="清空">
+								<input class="my-buttton" type="submit" name="" value="提取">
+							</div>
+						</div>
+					</div>
+				</div>			
+			</div>
+<!-- 			<div class="row">
+				<div class="col-lg-2 col-lg-offset-10" style="padding-right:0">
+					<a href="#" class="btn btn-danger" style="float: right;">提取言论</a>
+				</div>
+			</div> -->
+		</div>	
+	</div><!-- 文本输入栏 -->
+	
+	<br>
+
+	<!-- 展示目录栏 -->
+	<div class="container">
+		<span style="font-size:24px;">成果展示</span>
+		<hr style="border-top: 2px solid #eee;margin-top: 0px;">
+	</div><!-- 展示目录栏 -->
+	
+	<!-- 展示栏 -->
+	<div class="container">
+		<div class="row secondpart">
+			<!-- 左侧菜单栏 -->
+			<div class="col-md-2 leftmenu">
+				<ul class="nav nav-pills nav-stacked">
+					<li role="presentation" class=""><a href="http://39.100.3.165:8567/SpeechExtraction/#">言论提取表</a></li>
+					<li role="presentation" class="active"><a href="http://39.100.3.165:8567/SpeechExtraction/#">言论提取树形图</a></li>
+					<li role="presentation" class=""><a href="http://39.100.3.165:8567/SpeechExtraction/#">关键词提取</a></li>
+				</ul>
+			</div><!-- 左侧菜单栏 -->
+
+			<!-- 左侧显示栏 -->
+			<div class="col-md-10">
+				<div class="rightmenu">
+					<div class="showpalce" id="mytree"><svg width="960" height="450"><g transform="translate(50,10)"><path class="link" d="M100,387C150,387 150,372.6666666666667 200,372.6666666666667"></path><path class="link" d="M100,387C150,387 150,401.33333333333337 200,401.33333333333337"></path><path class="link" d="M100,301C150,301 150,286.6666666666667 200,286.6666666666667"></path><path class="link" d="M100,301C150,301 150,315.33333333333337 200,315.33333333333337"></path><path class="link" d="M100,129C150,129 150,28.666666666666668 200,28.666666666666668"></path><path class="link" d="M100,129C150,129 150,57.333333333333336 200,57.333333333333336"></path><path class="link" d="M100,129C150,129 150,86 200,86"></path><path class="link" d="M100,129C150,129 150,114.66666666666667 200,114.66666666666667"></path><path class="link" d="M100,129C150,129 150,143.33333333333334 200,143.33333333333334"></path><path class="link" d="M100,129C150,129 150,172 200,172"></path><path class="link" d="M100,129C150,129 150,200.66666666666669 200,200.66666666666669"></path><path class="link" d="M100,129C150,129 150,229.33333333333334 200,229.33333333333334"></path><path class="link" d="M0,258C50,258 50,129 100,129"></path><path class="link" d="M0,258C50,258 50,301 100,301"></path><path class="link" d="M0,258C50,258 50,387 100,387"></path><g class="node" transform="translate(200,401.3333435058594)"><circle r="10" style="fill: rgb(255, 255, 255);"></circle><text x="13" dy=".35em" text-anchor="start" style="fill-opacity: 1;">程先生持有的《红楼梦》及《西游记》彩色银币并非中国人民银行发行、由中国金币总公司经销的彩色银币</text></g><g class="node" transform="translate(200,372.6666564941406)"><circle r="10" style="fill: rgb(255, 255, 255);"></circle><text x="13" dy=".35em" text-anchor="start" style="fill-opacity: 1;">程先生持有的《红楼梦》及《西游记》彩色银币并非中国人民银行发行、由中国金币总公司经销的彩色银币</text></g><g class="node" transform="translate(100,387)"><circle r="10" style="fill: rgb(255, 255, 255);"></circle><text x="-13" dy=".35em" text-anchor="end" style="fill-opacity: 1;">法院</text></g><g class="node" transform="translate(200,315.3333435058594)"><circle r="10" style="fill: rgb(255, 255, 255);"></circle><text x="13" dy=".35em" text-anchor="start" style="fill-opacity: 1;">西城法院一审程先生所购纪念币并非中国金币总公司所售正品，驳回其诉讼请求去年7月，程先生在网上购买了《红楼梦》、《西游记》彩色纪念币各一套，货款及邮费共计2613元。</text></g><g class="node" transform="translate(200,286.6666564941406)"><circle r="10" style="fill: rgb(255, 255, 255);"></circle><text x="13" dy=".35em" text-anchor="start" style="fill-opacity: 1;">西城法院一审程先生所购纪念币并非中国金币总公司所售正品，驳回其诉讼请求去年7月，程先生在网上购买了《红楼梦》、《西游记》彩色纪念币各一套，货款及邮费共计2613元。</text></g><g class="node" transform="translate(100,301)"><circle r="10" style="fill: rgb(255, 255, 255);"></circle><text x="-13" dy=".35em" text-anchor="end" style="fill-opacity: 1;">记者</text></g><g class="node" transform="translate(200,229.3333282470703)"><circle r="10" style="fill: rgb(255, 255, 255);"></circle><text x="13" dy=".35em" text-anchor="start" style="fill-opacity: 1;">双倍索赔</text></g><g class="node" transform="translate(200,200.6666717529297)"><circle r="10" style="fill: rgb(255, 255, 255);"></circle><text x="13" dy=".35em" text-anchor="start" style="fill-opacity: 1;">中国金币总公司双倍返还价款并赔偿交通费</text></g><g class="node" transform="translate(200,172)"><circle r="10" style="fill: rgb(255, 255, 255);"></circle><text x="13" dy=".35em" text-anchor="start" style="fill-opacity: 1;">重后发现，他所购银币重量与鉴定证书所载重量存在较大差距，他认为银币存在严重质量问题，属于不合格品相关的广告及鉴定证书属于虚假宣传，误导其消费。</text></g><g class="node" transform="translate(200,143.3333282470703)"><circle r="10" style="fill: rgb(255, 255, 255);"></circle><text x="13" dy=".35em" text-anchor="start" style="fill-opacity: 1;">双倍索赔</text></g><g class="node" transform="translate(200,114.66666412353516)"><circle r="10" style="fill: rgb(255, 255, 255);"></circle><text x="13" dy=".35em" text-anchor="start" style="fill-opacity: 1;">双倍索赔</text></g><g class="node" transform="translate(200,86)"><circle r="10" style="fill: rgb(255, 255, 255);"></circle><text x="13" dy=".35em" text-anchor="start" style="fill-opacity: 1;">中国金币总公司双倍返还价款并赔偿交通费</text></g><g class="node" transform="translate(200,57.33333206176758)"><circle r="10" style="fill: rgb(255, 255, 255);"></circle><text x="13" dy=".35em" text-anchor="start" style="fill-opacity: 1;">重后发现，他所购银币重量与鉴定证书所载重量存在较大差距，他认为银币存在严重质量问题，属于不合格品相关的广告及鉴定证书属于虚假宣传，误导其消费。</text></g><g class="node" transform="translate(200,28.66666603088379)"><circle r="10" style="fill: rgb(255, 255, 255);"></circle><text x="13" dy=".35em" text-anchor="start" style="fill-opacity: 1;">双倍索赔</text></g><g class="node" transform="translate(100,129)"><circle r="10" style="fill: rgb(255, 255, 255);"></circle><text x="-13" dy=".35em" text-anchor="end" style="fill-opacity: 1;">程先生</text></g><g class="node" transform="translate(0,258)"><circle r="10" style="fill: rgb(255, 255, 255);"></circle><text x="-13" dy=".35em" text-anchor="end" style="fill-opacity: 1;">Graph</text></g></g></svg></div>
+				</div>				
+			</div><!-- 左侧显示栏 -->	
+		</div>
+	</div><!-- 展示栏 -->
+
+
+	<!-- 加载javascript -->
+	<script src="../static/js/jquery.min.js"></script>
+	<script src="../static/js/bootstrap.min.js"></script>
+	<script src=".//static/js/d3.v3.min.js" charset="utf-8"></script>
+		
+	<script type="text/javascript" src="../static/js/pro1.js"></script>
+
+</body></html>
