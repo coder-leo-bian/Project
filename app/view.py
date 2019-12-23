@@ -7,13 +7,8 @@ db = SQLAlchemy(app)
 bootstrap = Bootstrap(app)
 from flask import render_template
 from flask import request, redirect, jsonify
-# from model.models import NewsChinese
 import logging, re
-import json
-# from train_model import *
-# import parse_text
-# from views import summarization_simple as ss
-# from TextCNN.THUCNews import predict
+from .GenerationSummarize import MMR_summarize
 logger = logging.getLogger()
 
 
@@ -49,7 +44,11 @@ def generate_summarize_solve():
     text = data['text']
     title = data['title']
     num = data['num']
-    return render_template('GenerateSummarize.html')
+    mmr = MMR_summarize.MMRSummarization()
+    res = mmr.MMR(sentence=text, max_size=int(num))
+    # Topic = MMR_summarize.Topic(text)
+    # topic = Topic.topic()
+    return jsonify({'summarization': res})
 
 
 
