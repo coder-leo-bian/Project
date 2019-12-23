@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)http://39.100.3.165:8567/AbastractGeneration/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>文章摘要自动生成</title>
+	<link rel="stylesheet" href="../static/css/summarize/bootstrap.min.css">
+
+	<link rel="stylesheet" type="text/css" href="../static/css/summarize/pro2.css">
+
+
+</head>
+<body>
+<!--	<div class="pop_con" id="pop_con" style="display: none;">-->
+<!--		<div class="popup">-->
+<!--		<p id="pop_tip">模型载入中···</p>-->
+<!--		<div class="progress">-->
+<!--			<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 108%;"></div>-->
+<!--		</div>-->
+<!--		</div>-->
+<!--		<div class="mask"></div>-->
+<!--	</div>-->
+<!--	-->
+	<!-- 导航栏 -->
+	<div class="navbar navbar-default navbar-static-top navbar-fixed-top">
+		<div class="container">
+			<!-- 导航条头部元素 -->
+			<div class="navbar-header">
+				<button class="navbar-toggle" data-toggle="collapse" data-target="#my_menu">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a href="http://39.100.3.165:8567/AbastractGeneration/#" class="navbar-brand">文章摘要自动生成</a>
+			</div>
+		</div>
+	</div><!-- 导航栏 -->
+
+	<br>
+	<br>
+	
+	<!-- 文本输入栏 -->
+	<div class="container">
+		<div class="input-group">
+		  <span class="input-group-addon" id="basic-addon1">Title</span>
+		  <input type="text" class="form-control" placeholder="输入标题可获取更佳摘要效果" aria-describedby="basic-addon1">
+		</div>
+
+		<br>
+		<div class="jumbotron firstpart">
+			<div class="row">
+				<div>
+					<textarea name="input_text" class="my-input" placeholder="请输入你要处理的内容" rows="10" style="resize: none;overflow: auto; background-color: #eee;"></textarea>
+				</div>
+
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-6">
+									<input class="my-buttton" type="reset" name="" value="随机获取文本">
+									<span style="font-size:14px">摘要长度:</span>
+									<select id="len" style="width:60px;height:28px;padding: 0px 14px;font-size: 12px;">
+									  <option>3</option>
+									  <option>4</option>
+									  <option selected="selected">5</option>
+									  <option>6</option>
+									  <option>7</option>
+									  <option>8</option>
+									  <option>9</option>
+									</select>
+						</div>
+
+						<div class="col-lg-6">							
+							<div style="text-align:right;">	
+								<button id="reset" class="my-buttton" type="reset" name="" value="">清空</button>
+								<button id="submit" class="my-buttton" type="submit" name="" value="">提取</button>
+							</div>
+						</div>
+					</div>
+				</div>			
+			</div>
+		</div>	
+	</div><!-- 文本输入栏 -->
+	
+	<br>
+
+	<!-- 展示目录栏 -->
+	<div class="container">
+		<span style="font-size:24px;">成果展示</span>
+		<hr style="border-top: 2px solid #eee;margin-top: 0px;">
+	</div><!-- 展示目录栏 -->
+	
+	<!-- 展示栏 -->
+	<div class="container">
+		<div class="row secondpart">
+			<!-- 左侧菜单栏 -->
+			<div class="col-md-2 leftmenu">
+				<ul class="nav nav-pills nav-stacked">
+					<li role="presentation" class="active"><a href="http://39.100.3.165:8567/AbastractGeneration/#">摘要生成</a></li>
+					<li role="presentation" class=""><a href="http://39.100.3.165:8567/AbastractGeneration/#">主题提取</a></li>
+					<li role="presentation"><a href="http://39.100.3.165:8567/AbastractGeneration/#">关键词提取</a></li>
+				</ul>
+			</div><!-- 左侧菜单栏 -->
+
+			<!-- 左侧显示栏 -->
+			<div class="col-md-10">
+				<div class="rightmenu">
+					<div class="showpalce" id="mytree"><span style="font-size:24px;">文章摘要</span><hr style="border-top:				2px solid #9d1b57;margin-bottom:12px;margin-top:0px;"><p></p></div>
+				</div>				
+			</div><!-- 左侧显示栏 -->	
+		</div>
+	</div><!-- 展示栏 -->
+
+
+	<!-- 加载javascript -->
+	<script src="../static/js/summarize/jquery.min.js"></script>
+	<script src="../static/js/summarize/bootstrap.min.js"></script>
+	<script src="../static/js/summarize/d3.v3.min.js" charset="utf-8"></script>
+	<script src="../static/js/summarize/d3.min.js"></script>
+	<script src="../static/js/summarize/d3-legend.min.js"></script>
+
+	<script type="text/javascript" src="../static/js/summarize/pro2.js"></script>
+
+</body></html>
