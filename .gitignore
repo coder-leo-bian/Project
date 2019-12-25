@@ -1,2 +1,7 @@
 .DS_Store
 .idea
+*.pyc
+GenerationSummarize/*.pyc
+model/*.pyc
+SpeechExtraction/*.pyc
+tools/*.pyc
