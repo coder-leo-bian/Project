@@ -6,14 +6,14 @@ import re
 import gensim
 import os
 # from textrank4zh import TextRank4Sentence
-from app.tools.deal_text import cut
-from app.tools.base_function import cosine_similar
+from tools.deal_text import cut
+from tools.base_function import cosine_similar
 import warnings
 """https://www.zhongxiaoping.cn/2019/02/25/SIF%E7%AE%97%E6%B3%95%E8%A7%A3%E6%9E%90/#wu-sif-suan-fa-dai-ma-bu-zou sif算法解析"""
 
 warnings.filterwarnings('ignore')
 
-if os.path.exists('/root/flag_server'):
+if os.path.exists('/root/.flag'):
     WORD_VECTOR = '/root/project/Project_01/static/save_file/save_mode2'
 elif os.path.exists('/Volumes/Samsung_T5/'):
     WORD_VECTOR = "/Volumes/Samsung_T5/AI/TextCNNClassfication_SinaNewsData/THUCNews_word2Vec/THUCNews_word2Vec_128.model"

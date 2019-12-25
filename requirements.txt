@@ -1,0 +1,11 @@
+jieba
+matplotlib
+gensim
+pyltp
+numpy
+pandas
+uwsgi
+flask
+flask_sqlalchemy
+flask_bootstrap
+networkx

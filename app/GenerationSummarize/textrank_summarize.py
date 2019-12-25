@@ -4,7 +4,7 @@ import gensim
 import math
 import jieba
 import warnings
-from app.tools.deal_text import cut
+from tools.deal_text import cut
 """https://www.zhongxiaoping.cn/2019/02/25/SIF%E7%AE%97%E6%B3%95%E8%A7%A3%E6%9E%90/#wu-sif-suan-fa-dai-ma-bu-zou sif算法解析"""
 warnings.filterwarnings('ignore')
 

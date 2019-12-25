@@ -10,9 +10,9 @@ import matplotlib.pyplot as plt
 from flask import request, redirect, jsonify
 import logging, os
 import pandas as pd
-from .model.models import XinlangNews
+from model.models import XinlangNews
 import numpy as np
-from .GenerationSummarize import MMR_summarize, textrank_summarize as ts
+from GenerationSummarize import MMR_summarize, textrank_summarize as ts
 logger = logging.getLogger()
 from flask_cors import CORS
 CORS(app)

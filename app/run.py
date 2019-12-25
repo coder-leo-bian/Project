@@ -1,5 +1,6 @@
-from app.view import app
+from view import app
 import logging
+import os
 
 
 def config_logger():
@@ -20,5 +21,6 @@ def config_logger():
 
 if __name__ == "__main__":
     # 设置日志
-    # config_logger()
+    if os.path.exists('/root/.flag'):
+        config_logger()
     app.run(port=9999)

@@ -3,8 +3,8 @@ import gensim
 import os
 import operator
 import jieba
-from app.tools.metrics import rouge_n
-from app.tools.base_function import cosine_similar, sentence_to_vec
+from tools.metrics import rouge_n
+from tools.base_function import cosine_similar, sentence_to_vec
 import warnings
 import math
 warnings.filterwarnings('ignore')
