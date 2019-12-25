@@ -27,16 +27,16 @@ def index():
     return render_template('ProjectHome.html')
 
 
-# @app.route('/SpeechExtraction/')
-# def speech_extraction():
-#     return render_template('SpeechExtraction.html')
-#
-#
-# @app.route('/SpeechExtraction/solve', methods=['GET', 'POST'])
-# def speech_extraction_solve():
-#     input_text = request.form.get('data')
-#     print(input_text)
-#     return render_template('SpeechExtraction.html')
+@app.route('/SpeechExtraction/')
+def speech_extraction():
+    return render_template('SpeechExtraction.html')
+
+
+@app.route('/SpeechExtraction/solve', methods=['GET', 'POST'])
+def speech_extraction_solve():
+    input_text = request.form.get('data')
+    print(input_text)
+    return render_template('SpeechExtraction.html')
 
 @app.route('/AbastractGeneration/')
 def generate_summarize():

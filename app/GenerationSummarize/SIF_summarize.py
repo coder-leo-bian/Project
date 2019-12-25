@@ -14,7 +14,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 if os.path.exists('/root/.flag'):
-    WORD_VECTOR = '/root/word2vec/THUCNews_word2Vec_128.model'
+    WORD_VECTOR = '/root/word2vec/THUCNews_word2Vec/THUCNews_word2Vec_128.model'
 elif os.path.exists('/Volumes/Samsung_T5/'):
     WORD_VECTOR = "/Volumes/Samsung_T5/AI/TextCNNClassfication_SinaNewsData/THUCNews_word2Vec/THUCNews_word2Vec_128.model"
 elif os.path.exists('/Users/haha'):

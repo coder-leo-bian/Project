@@ -15,7 +15,7 @@ warnings.filterwarnings('ignore')
 
 
 if os.path.exists('/root/.flag'):
-    WORD_VECTOR = '/root/word2vec/THUCNews_word2Vec_128.model'
+    WORD_VECTOR = '/root/word2vec/THUCNews_word2Vec/THUCNews_word2Vec_128.model'
 elif os.path.exists('/Volumes/Samsung_T5/'):
     WORD_VECTOR = "/Volumes/Samsung_T5/AI/TextCNNClassfication_SinaNewsData/THUCNews_word2Vec/THUCNews_word2Vec_128.model"
 elif os.path.exists('/Users/haha'):
@@ -31,8 +31,10 @@ class MMRSummarization:
         self.word2vec = None
         self.text = None
 
-    def sentence_to_vector(self, sentence_list):
-        return sentence_to_vec(corpus=self.text, sentence_list=sentence_list, embedding_size=100, W2V_MODEL=self.word2vec)
+    def sentence_to_vector(self, sentence_list, embedding_size=100):
+        if os.path.exists('/root/.flag') or os.path.exists('/Volumes/Samsung_T5/'):
+            embedding_size = 128
+        return sentence_to_vec(corpus=self.text, sentence_list=sentence_list, embedding_size=embedding_size, W2V_MODEL=self.word2vec)
 
     def compute_qdscore(self, title=None):
         sentence_list = self.split_sentence(self.text)  # [sen1, sen2, ...]
