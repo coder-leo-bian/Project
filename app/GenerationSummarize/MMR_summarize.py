@@ -14,8 +14,8 @@ warnings.filterwarnings('ignore')
 """https://www.zhongxiaoping.cn/2019/02/25/SIF%E7%AE%97%E6%B3%95%E8%A7%A3%E6%9E%90/#wu-sif-suan-fa-dai-ma-bu-zou sif算法解析"""
 
 
-if os.path.exists('/root/flag_server'):
-    WORD_VECTOR = '/root/project/Project_01/static/save_file/save_mode2'
+if os.path.exists('/root/.flag'):
+    WORD_VECTOR = '/root/word2vec/THUCNews_word2Vec_128.model'
 elif os.path.exists('/Volumes/Samsung_T5/'):
     WORD_VECTOR = "/Volumes/Samsung_T5/AI/TextCNNClassfication_SinaNewsData/THUCNews_word2Vec/THUCNews_word2Vec_128.model"
 elif os.path.exists('/Users/haha'):
