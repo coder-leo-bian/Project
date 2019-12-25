@@ -104,7 +104,7 @@ font-weight:normtal;
 }
 .rightmenu{
   background-color:#eee;
-  border-radius: 6px; 
+  /*border-radius: 6px; */
   margin: 0px -15px 0px 15px;
   padding: 25px;
   height: 500px;

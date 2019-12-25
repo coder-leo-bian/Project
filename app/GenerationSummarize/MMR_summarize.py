@@ -10,6 +10,7 @@ import math
 warnings.filterwarnings('ignore')
 
 
+
 """https://www.zhongxiaoping.cn/2019/02/25/SIF%E7%AE%97%E6%B3%95%E8%A7%A3%E6%9E%90/#wu-sif-suan-fa-dai-ma-bu-zou sif算法解析"""
 
 
@@ -33,12 +34,15 @@ class MMRSummarization:
     def sentence_to_vector(self, sentence_list):
         return sentence_to_vec(corpus=self.text, sentence_list=sentence_list, embedding_size=100, W2V_MODEL=self.word2vec)
 
-    def compute_qdscore(self):
+    def compute_qdscore(self, title=None):
         sentence_list = self.split_sentence(self.text)  # [sen1, sen2, ...]
-        sentence_list.append(''.join(sentence_list))
+        if title:
+            sentence_list.append(title)
+        else:
+            sentence_list.append(''.join(sentence_list))
         QDsocre, index_solution = {}, {}
         sentence_list_vector = self.sentence_to_vector(sentence_list)
-        special_vector = sentence_list_vector.pop(-1) # 长文本
+        special_vector = sentence_list_vector.pop(-1) # 长文本 or title
         for inx, vector in enumerate(sentence_list_vector):
             qdscore = cosine_similar(vector, special_vector)
             QDsocre[sentence_list[inx]] = qdscore
@@ -51,7 +55,7 @@ class MMRSummarization:
         split = pattern.sub(' ', sentence).split()
         return split
 
-    def MMR(self, sentence=None, alpha=0.7, max_size=3):
+    def MMR(self, sentence=None, title=None, alpha=0.7, max_size=3):
         """
         main function: alpha * similar(Q, D) - (1-alpha) * max(similar(D_i, D_j))
         first step: compute Q, D similar
@@ -63,13 +67,13 @@ class MMRSummarization:
         """
         self.text = sentence
         self.word2vec = W2V_MODEL
-        QDsocre, index_solution, sentence_list_vector, sentence_list = self.compute_qdscore() #
+        QDsocre, index_solution, sentence_list_vector, sentence_list = self.compute_qdscore(title) #
         summarize_set = list()
         while max_size > 1:
             if not summarize_set:
-                summarize_set.append(sentence_list[0])
-                # max_score = sorted(QDsocre.items(), key=operator.itemgetter(1), reverse=True)[0][0]
-                # summarize_set.append(max_score)
+                # summarize_set.append(sentence_list[0])
+                max_score = sorted(QDsocre.items(), key=operator.itemgetter(1), reverse=True)[0][0]
+                summarize_set.append(max_score)
             MMRscore = {}
             for sen in QDsocre.keys():
                 if sen not in summarize_set:
@@ -86,41 +90,6 @@ class MMRSummarization:
             max_size -= 1
         summarize = [(summ, index_solution[summ]) for summ in summarize_set]
         return '。'.join([s[0] for s in  sorted(summarize, key=lambda x: x[1])])
-
-
-class TextAnalyse:
-    def __init__(self, sentence):
-        mmr = MMRSummarization()
-        self.sentence = sentence
-        self.sentence_list = mmr.split_sentence(sentence)
-        self.sentence_words_list = [self.stop_word(dictwords=jieba.lcut(sen)) for sen in self.sentence_list]
-
-    def stop_word(self, dictwords, path='../app/static/stopwords'):
-        with open(path, 'r') as fr:
-            stopwords = [line.replace('\n', '') for line in fr.read() if line != '\n']
-        res = [word for word in dictwords if word not in stopwords]
-        return res
-
-    def analyse_tags_tfidf(self):
-        # tf idf 提取关键词 count(sen_w)/count(sen) == tf;  count(doc)/count(doc_w) = idf;  tfidf = log(tf * idf)
-        doc_count = len(self.sentence_words_list)
-        word_counts = dict()
-        seek = []
-        for word_list in self.sentence_words_list:
-            for word in word_list:
-                if word not in seek:
-                    seek.append(word)
-                    if word in word_counts: word_counts[word] += 1
-                    else: word_counts[word] = 1
-        idfs_value = {word: math.log(doc_count / float(word_counts[word])) for word in word_counts}
-
-    def analyse_tags_textrank(self):
-        # textrank 提取关键词
-        pass
-
-    def topic(self):
-        # 主题提取
-        pass
 
 
 if __name__ == '__main__':
