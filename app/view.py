@@ -45,6 +45,7 @@ def generate_summarize():
 
 @app.route('/AbastractGeneration/solve', methods=['GET', 'POST'])
 def generate_summarize_solve():
+    logger.info('自动摘要提取中...')
     data = request.json
     text = data['text']
     title = data['title']
@@ -59,6 +60,7 @@ def generate_summarize_solve():
 
 
 def pie_graph(keywords):
+    logger.info('关键词分布饼状图生成中...')
     plt.rcParams['font.sans-serif']=['SimHei'] #用来正常显示中文标签
     labels = ['{}:{}'.format(k, round(p, 5)) for k, p in keywords]
     size_total = sum([p for k, p in keywords])
@@ -89,6 +91,7 @@ def write_news(size = 100):
 @app.route('/AbastractGeneration/mysql', methods=['GET', 'POST'])
 def generate_summarize_shuff_mysql():
     # write_news()
+    logger.info('随机生成文本中...')
     ids = [i for i in range(103, 353)]
     np.random.shuffle(ids)
     # news = XinlangNews.query.all()

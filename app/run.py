@@ -6,7 +6,7 @@ import os
 def config_logger():
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
-    fh = logging.FileHandler('news.log', mode='w')
+    fh = logging.FileHandler('/var/log/Project/nlp_project.log', mode='w')
     fh.setLevel(logging.INFO)
     formatter = logging.Formatter("%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s")
     fh.setFormatter(formatter)
