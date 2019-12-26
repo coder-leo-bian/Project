@@ -1,5 +1,5 @@
-// var address = 'http://localhost:9999';
-var address = 'http://49.234.19.31:8082';
+var address = 'http://localhost:9999';
+// var address = 'http://49.234.19.31:8082';
 
 $(function () {
     var result = {};
@@ -26,7 +26,7 @@ $(function () {
     $(".form-control").val('林肯公园林肯公园主唱查斯特·贝宁顿Chester Bennington自杀，年仅41');
     $("input").eq(1).click(function () {
         $.ajax({
-            url: address + '/AbastractGeneration/mysql',
+            url: address + '/GetContent/mysql',
             type: 'GET',
             cache: false,
             dataType: 'json',
@@ -59,7 +59,7 @@ $(function () {
 
     })
 
-    $("input").eq(2).click(function () {
+    $("#reset").click(function () {
         $("textarea").val('');
         $(".form-control").val('');
 
@@ -203,7 +203,7 @@ $(function () {
         $("#keyword_row").css('display', 'block')
         $("#topic_row").css('display', 'none')
         $("#description_row").css('display', 'none')
-        $("#keyword_graph").attr('src', '../static/keywords.jpg?t=' + Date.parse(new Date()))
+        $("#keyword_graph").attr('src', '../static/keywords.png?t=' + Date.parse(new Date()))
     }
 
     function ShowTopic(data) {

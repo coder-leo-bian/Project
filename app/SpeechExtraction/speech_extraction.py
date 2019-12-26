@@ -10,7 +10,7 @@ import pyltp
 if os.path.exists('/Volumes/Samsung_T5/'):
     LTP_DATA_DIR = '/Volumes/Samsung_T5/AI/ltp_data'  # ltp模型目录的路径
 elif os.path.exists('/root/.flag'):
-    LTP_DATA_DIR = '/root/ltp_dataa'  # ltp模型目录的路径
+    LTP_DATA_DIR = '/root/ltp_data'  # ltp模型目录的路径
 
 
 # 依存分析

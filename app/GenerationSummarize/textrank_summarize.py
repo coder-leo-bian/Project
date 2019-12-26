@@ -4,7 +4,7 @@ import gensim
 import math
 import jieba
 import warnings
-from tools.deal_text import cut
+from tools.deal_text import cut, postags_words
 """https://www.zhongxiaoping.cn/2019/02/25/SIF%E7%AE%97%E6%B3%95%E8%A7%A3%E6%9E%90/#wu-sif-suan-fa-dai-ma-bu-zou sif算法解析"""
 warnings.filterwarnings('ignore')
 
@@ -83,8 +83,19 @@ class TextRankSummarization:
 class TextRankKeyWords:
     def __init__(self, sentence, windows=3):
         self.sentence = sentence
-        self.tokens = cut(sentence) # [word1, word2, ...]
+        self.tokens = cut(sentence)  # [word1, word2, ...]
         self.windows = windows
+        self.tokens = []
+        self.get_tokens(sentence)
+
+    def get_tokens(self, sentence=None):
+        words = cut(sentence)
+        tokens = []
+        domain = ['a', 'n', 'nd', 'nh', 'ni', 'nl', 'ns', 'nt', 'nz', 'v']
+        for idx, value in enumerate(postags_words(words)):
+            if value in domain:
+                tokens.append(words[idx])
+        self.tokens = tokens
 
     def get_connect_graph_by_text_rank(self):
         graph = networkx.Graph()

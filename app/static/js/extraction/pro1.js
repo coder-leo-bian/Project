@@ -56,7 +56,7 @@ $(function(){
 
 	$("input").eq(0).click(function(){
 		$.ajax({
-			url:'/SpeechExtraction/mysql',
+			url:'/GetContent/mysql',
 			type:'GET',
 			cache: false,
 			dataType:'json',
@@ -81,9 +81,10 @@ $(function(){
 		})
 		.done(function(dat){
 			sSaying = "";
+
 			for(name in dat){
 				if(typeof(temp_dict[dat[name][0]]) == "undefined"){
-					temp_dict[dat[name][0]]={"name":dat[name][0],"children":[]}};
+				temp_dict[dat[name][0]]={"name":dat[name][0],"children":[]}};
 				temp_dict[dat[name][0]].children.push({"name":dat[name][2]});
 
 				sSaying += "<tr><th scope=\"row\">"+dat[name][0]+"</th><td>";
@@ -98,7 +99,7 @@ $(function(){
 		
 	})
 
-	$("input").eq(1).click(function(){
+	$("#input").eq(1).click(function(){
 		$("textarea").val('');
 
 	})

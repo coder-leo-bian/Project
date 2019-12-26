@@ -12,10 +12,12 @@ import logging, os
 import pandas as pd
 from model.models import XinlangNews
 import numpy as np
+from SpeechExtraction.speech_extraction import ParseDepend
 from GenerationSummarize import MMR_summarize, textrank_summarize as ts
 logger = logging.getLogger()
 from flask_cors import CORS
 CORS(app)
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index_bak():
@@ -34,9 +36,11 @@ def speech_extraction():
 
 @app.route('/SpeechExtraction/solve', methods=['GET', 'POST'])
 def speech_extraction_solve():
-    input_text = request.form.get('data')
-    print(input_text)
+    content = request.json
+    pd = ParseDepend(sentence=content)
+    {}
     return render_template('SpeechExtraction.html')
+
 
 @app.route('/AbastractGeneration/')
 def generate_summarize():
@@ -67,11 +71,11 @@ def pie_graph(keywords):
     sizes = [p / size_total for k, p in keywords]
     plt.pie(sizes,labels=labels,autopct='%1.3f%%',shadow=False,startangle=150)
     plt.title("关键词分布")
-    plt.savefig('./static/keywords.jpg')
+    plt.savefig('./static/keywords.png')
     plt.close()
 
 
-def write_news(size = 100):
+def write_news(size=100):
     labels = pd.read_csv('/Users/haha/Desktop/NewsSet/train_label.csv')
     contents = pd.read_csv('/Users/haha/Desktop/NewsSet/train_text.csv')
     path = '/Users/haha/Desktop/面向微博的中文新闻摘要数据集/TestDataRelease/news.sentences/'
@@ -88,8 +92,8 @@ def write_news(size = 100):
     db.session.commit()
 
 
-@app.route('/AbastractGeneration/mysql', methods=['GET', 'POST'])
-def generate_summarize_shuff_mysql():
+@app.route('/GetContent/mysql', methods=['GET', 'POST'])
+def get_shuffle_context_by_mysql():
     # write_news()
     logger.info('随机生成文本中...')
     ids = [i for i in range(103, 353)]

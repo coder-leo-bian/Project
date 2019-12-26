@@ -1,10 +1,12 @@
 import jieba
 import re
 import os
+from pyltp import Postagger
 
 
 if os.path.exists('/root/.flag'):
-    path = '../static/stopwords'
+    path = 'static/stopwords'
+    parse_path = '/root/ltp_data'
 else:
     if os.path.exists('/Users/bj'):
         path = '/Users/bj/Desktop/Documents/Project_01/static/stopwords'
@@ -16,6 +18,16 @@ def cut(sentence):
     pattern = re.compile('[\w+]')
     sentence = ''.join(re.findall(pattern, sentence))
     return stop_word(jieba.lcut(sentence))
+
+
+def postags_words(words=None):
+    # 词性标注
+    postagger = Postagger()
+    postagger.load(os.path.join(parse_path, 'pos.model'))
+    postags = postagger.postag(words)
+    print(postags)
+    postagger.release()
+    return postags
 
 
 def stop_word(words):
