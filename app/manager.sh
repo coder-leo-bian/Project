@@ -11,8 +11,8 @@ function_stop()
 
 function_restart()
 {
-  function_dev_stop
-  function_dev_start
+  function_stop
+  function_start
 }
 
 if [ "$1" = "start" ] ; then
