@@ -3,8 +3,8 @@ import re
 import os
 
 
-if os.path.exists('/root/flag_server'):
-    path = '/root/project/Project_01//static/stopwords'
+if os.path.exists('/root/.flag'):
+    path = '../static/stopwords'
 else:
     if os.path.exists('/Users/bj'):
         path = '/Users/bj/Desktop/Documents/Project_01/static/stopwords'
