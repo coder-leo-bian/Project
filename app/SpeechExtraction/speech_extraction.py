@@ -25,12 +25,12 @@ class ParseDepend:
         self.postags = [self.get_word_xing(sent) for sent in self.sentences]
         self.depends = [self.get_word_depend(self.sentences[i], self.postags[i]) for i in range(len(self.sentences))]
         self.ner = [self.get_ner(self.sentences[i], self.postags[i]) for i in range(len(self.sentences))]
-        self.get_say_similar = self.get_say_similar()
+        self.say_similar_words = self.get_say_similar()
 
     def deal_sentence(self, sentences):
         # 处理句子，并且分词
         sentence = ''.join(re.findall(r'[^\s]', sentences))
-        pattern = re.compile('[。？?!！.]')
+        pattern = re.compile('[。？?!！]')
         split = pattern.sub(' ', sentence).split()
         return [jieba.lcut(s) for s in split]
 
@@ -55,7 +55,7 @@ class ParseDepend:
         arcs = parser.parse(words, postags)  # 句法分析
         # print("\t".join("%d:%s" % (arc.head, arc.relation) for arc in arcs))
         parser.release()  # 释放模型
-        return {arc.head: arc.relation for arc in arcs}
+        return [(arc.relation, arc.head) for idx, arc in enumerate(arcs)]  # {'SBV': 4}
 
     def get_HED(self, words, arcs):
         # get HED
@@ -72,7 +72,8 @@ class ParseDepend:
         recognizer.load(ner_model_path)  # 加载模型
         netags = recognizer.recognize(words, postags)  # 命名实体识别
         recognizer.release()  # 释放模型
-        return '\t'.join(netags)
+        # print('\t'.join(netags))
+        return ' '.join(netags).split()
 
     def get_word(self, head, wtype, sentence, arcs):
         # get related word
@@ -82,28 +83,29 @@ class ParseDepend:
         return 'nan', 'nan'
 
     def get_say_similar(self):
-        with open('/Users/bj/Desktop/Documents/Project/app/SpeechExtraction/data/say_word_similar', 'r') as fr:
+        with open('/Users/haha/Desktop/Project/app/static/say_word_similar', 'r') as fr:
             words = fr.readlines()
         return [word.replace('\n', '') for word in words]
 
     def get_main(self):
+        """
+        1. 查询谓语是否存在；2.查找主谓关系；3.确定命名实体；4.判断主语是否是人名，谓语动词是不是"说"相似的
+        :return:
+        """
         result = []
-        for i, sentence in enumerate(self.sentences):
-            arcs = self.depends[i] # 依存
-            root = self.get_HED(sentence, arcs) # 谓语
-            netags = self.ner[i] # 命名实体
-            if root and root[2]:
-                hed = root[2]    # 谓语
-                sbv, sbv_i = self.get_word(root[0], 'SBV', sentence, arcs)  # 获取主语 root[0] 为谓语动词的索引值
-                zhuyu = [sbv]
-                if sbv not in netags:
-                    pass
-                weiyu = [hed]
-                hed_index = sentence.index(hed)
-                words_r = sentence[hed_index+1:]
-                result.append([' '.join(zhuyu), ' '.join(weiyu), ' '.join(words_r)])
+        for sen_idx, relate_words in enumerate(self.depends):
+            for word_idx, relate_word in enumerate(relate_words):
+                if 'SBV' not in relate_word: continue
+                ZHUYU = self.sentences[sen_idx][word_idx]
+                WEIYU = self.sentences[sen_idx][relate_word[1] - 1]
+                QITA = self.sentences[sen_idx][relate_word[1]: ]
+                if WEIYU in self.say_similar_words and QITA:
+                    if result and  ''.join(QITA) in result[-1][-1]: continue
+                    result.append([''.join(ZHUYU), ''.join(WEIYU), ''.join(QITA)])
+
         if not result:
             result = ['不存在"说"相似的谓语动词']
+        print(result)
         return result
 
 

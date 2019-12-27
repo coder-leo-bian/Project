@@ -18,10 +18,7 @@ if os.path.exists('/root/.flag'):
     WORD_VECTOR = '/root/word2vec/THUCNews_word2Vec/THUCNews_word2Vec_128.model'
 elif os.path.exists('/Volumes/Samsung_T5/'):
     WORD_VECTOR = "/Volumes/Samsung_T5/AI/TextCNNClassfication_SinaNewsData/THUCNews_word2Vec/THUCNews_word2Vec_128.model"
-elif os.path.exists('/Users/haha'):
-    WORD_VECTOR = '/Users/haha/Desktop/Project_01/static/save_file/save_mode2'
-elif os.path.exists('/Users/bj'):
-    WORD_VECTOR = '/Users/bj/Desktop/Documents/Project_01/static/save_file/save_mode2'
+
 
 W2V_MODEL = gensim.models.Word2Vec.load(WORD_VECTOR)
 
