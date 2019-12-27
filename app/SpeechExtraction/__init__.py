@@ -1,1 +1,1 @@
-import speech_extraction
+from . import speech_extraction

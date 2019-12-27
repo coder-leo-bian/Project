@@ -10,6 +10,7 @@ if os.path.exists('/root/.flag'):
 else:
     if os.path.exists('/Users/bj'):
         path = '/Users/bj/Desktop/Documents/Project_01/static/stopwords'
+        parse_path = '/Users/bj/Desktop/Documents/ltp_data'
     elif os.path.exists('/Users/haha'):
         path = '/Users/haha/Desktop//Project_01/static/stopwords'
 

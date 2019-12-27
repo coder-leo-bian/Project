@@ -34,12 +34,12 @@ def speech_extraction():
     return render_template('SpeechExtraction.html')
 
 
-@app.route('/SpeechExtraction/solve', methods=['GET', 'POST'])
+@app.route('/Extraction/solve', methods=['GET', 'POST'])
 def speech_extraction_solve():
     content = request.json
-    pd = ParseDepend(sentence=content)
-    {}
-    return render_template('SpeechExtraction.html')
+    pd = ParseDepend(sentences=content)
+    pd.get_main()
+    return pd
 
 
 @app.route('/AbastractGeneration/')

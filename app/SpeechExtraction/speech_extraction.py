@@ -19,7 +19,7 @@ class ParseDepend:
     sentences: ["a b c", "d, e, f"]
     """
     def __init__(self, path='/root/ltp_data', sentences=None):
-        self.LTP_DATA_DIR = path  # ltp模型目录的路径
+        self.LTP_DATA_DIR = LTP_DATA_DIR  # ltp模型目录的路径
         self.arcs = None
         self.sentences = self.deal_sentence(sentences)
         self.postags = [self.get_word_xing(sent) for sent in self.sentences]
@@ -41,8 +41,9 @@ class ParseDepend:
         postagger.load(pos_model_path)  # 加载模型
         # words = ['元芳', '你', '怎么', '看']  # 分词结果
         postags = postagger.postag(words)  # 词性标注
+        # print('\t'.join(postags))
         postagger.release()  # 释放模型
-        return postags
+        return '\t'.join(postags).split()
 
     def get_word_depend(self, words, postags):
         # 依存分析
@@ -54,7 +55,7 @@ class ParseDepend:
         arcs = parser.parse(words, postags)  # 句法分析
         # print("\t".join("%d:%s" % (arc.head, arc.relation) for arc in arcs))
         parser.release()  # 释放模型
-        return arcs
+        return {arc.head: arc.relation for arc in arcs}
 
     def get_HED(self, words, arcs):
         # get HED
@@ -81,7 +82,7 @@ class ParseDepend:
         return 'nan', 'nan'
 
     def get_say_similar(self):
-        with open('./data/say_word_similar') as fr:
+        with open('/Users/bj/Desktop/Documents/Project/app/SpeechExtraction/data/say_word_similar', 'r') as fr:
             words = fr.readlines()
         return [word.replace('\n', '') for word in words]
 

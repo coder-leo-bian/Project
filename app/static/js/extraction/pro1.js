@@ -1,3 +1,5 @@
+var address = 'http://localhost:9999';
+
 $(function(){
 	// alert("1111");
 	// 
@@ -56,7 +58,7 @@ $(function(){
 
 	$("input").eq(0).click(function(){
 		$.ajax({
-			url:'/GetContent/mysql',
+			url: address + '/GetContent/mysql',
 			type:'GET',
 			cache: false,
 			dataType:'json',
@@ -67,15 +69,15 @@ $(function(){
 	})
 
 
-	$("input").eq(2).click(function(){
+	$("#submit").click(function(){
 		var data = $("textarea").val();
 		var req_json = JSON.stringify(data);
 		var temp_dict = {};
 		mydict={"name":"Graph","children":[]};
 		$.ajax({
-			url:'/SpeechExtraction/solve',
+			url: address + '/Extraction/solve',
 			type:'post',
-			data: data,
+			data: req_json,
 			contentType: "application/json",
 			dataType:'json',
 		})
@@ -99,7 +101,7 @@ $(function(){
 		
 	})
 
-	$("#input").eq(1).click(function(){
+	$("#reset").click(function(){
 		$("textarea").val('');
 
 	})
