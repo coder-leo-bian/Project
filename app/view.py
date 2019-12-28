@@ -38,8 +38,8 @@ def speech_extraction():
 def speech_extraction_solve():
     content = request.json
     pd = ParseDepend(sentences=content)
-    pd.get_main()
-    return pd
+    speech = pd.get_main()
+    return jsonify(speech)
 
 
 @app.route('/AbastractGeneration/')

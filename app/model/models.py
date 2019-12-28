@@ -13,4 +13,10 @@ class XinlangNews(db.Model):
     title = db.Column(db.String(256))
 
 
+class SpeechNews(db.Model):
+    __tablename__ = 'speech_news'
+
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.String(5000))
+
 db.create_all()

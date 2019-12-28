@@ -1,4 +1,6 @@
-var address = 'http://localhost:9999';
+// var address = 'http://localhost:9999';
+var address = 'http://49.234.19.31:8082';
+
 
 $(function(){
 	// alert("1111");
@@ -83,7 +85,7 @@ $(function(){
 		})
 		.done(function(dat){
 			sSaying = "";
-
+			console.log(dat)
 			for(name in dat){
 				if(typeof(temp_dict[dat[name][0]]) == "undefined"){
 				temp_dict[dat[name][0]]={"name":dat[name][0],"children":[]}};
@@ -145,6 +147,7 @@ $(function(){
 	})
 
 	function Graphshow(treeData){
+		console.log(treeData)
 		var margin = {top: 10, right: 30, bottom: 10, left:50},
 	    width = 960 - margin.right - margin.left,
 	    height = 450 - margin.top - margin.bottom;

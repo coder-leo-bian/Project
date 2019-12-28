@@ -4,13 +4,32 @@ from collections import defaultdict
 import re, jieba
 import os
 import pyltp
-
+jieba.load_userdict('static/wordsdict')
 """python 使用ltp: https://pyltp.readthedocs.io/zh_CN/latest/api.html"""
 
 if os.path.exists('/Volumes/Samsung_T5/'):
     LTP_DATA_DIR = '/Volumes/Samsung_T5/AI/ltp_data'  # ltp模型目录的路径
 elif os.path.exists('/root/.flag'):
     LTP_DATA_DIR = '/root/ltp_data'  # ltp模型目录的路径
+
+
+def load_model(c):
+    if c == 'pos':
+        pos_model_path = os.path.join(LTP_DATA_DIR, 'pos.model')  # 词性标注模型路径，模型名称为`pos.model`
+        postagger = pyltp.Postagger()  # 初始化实例
+        postagger.load(pos_model_path)  # 加载模型
+        return postagger
+    elif c == 'ner':
+        ner_model_path = os.path.join(LTP_DATA_DIR, 'ner.model')  # 命名实体识别模型路径，模型名称为`pos.model`
+        recognizer = pyltp.NamedEntityRecognizer()  # 初始化实例
+        recognizer.load(ner_model_path)  # 加载模型
+        return recognizer
+    elif c == 'parser':
+        par_model_path = os.path.join(LTP_DATA_DIR, 'parser.model')  # 依存句法分析模型路径，模型名称为`parser.model`
+        parser = pyltp.Parser()  # 初始化实例
+        parser.load(par_model_path)  # 加载模型
+
+        return parser
 
 
 # 依存分析
@@ -36,10 +55,11 @@ class ParseDepend:
 
     def get_word_xing(self, words):
         # 词性标注
-        pos_model_path = os.path.join(self.LTP_DATA_DIR, 'pos.model')  # 词性标注模型路径，模型名称为`pos.model`
-        postagger = pyltp.Postagger()  # 初始化实例
-        postagger.load(pos_model_path)  # 加载模型
+        # pos_model_path = os.path.join(self.LTP_DATA_DIR, 'pos.model')  # 词性标注模型路径，模型名称为`pos.model`
+        # postagger = pyltp.Postagger()  # 初始化实例
+        # postagger.load(pos_model_path)  # 加载模型
         # words = ['元芳', '你', '怎么', '看']  # 分词结果
+        postagger = load_model('pos')
         postags = postagger.postag(words)  # 词性标注
         # print('\t'.join(postags))
         postagger.release()  # 释放模型
@@ -47,11 +67,12 @@ class ParseDepend:
 
     def get_word_depend(self, words, postags):
         # 依存分析
-        par_model_path = os.path.join(self.LTP_DATA_DIR, 'parser.model')  # 依存句法分析模型路径，模型名称为`parser.model`
-        parser = pyltp.Parser()  # 初始化实例
-        parser.load(par_model_path)  # 加载模型
+        # par_model_path = os.path.join(self.LTP_DATA_DIR, 'parser.model')  # 依存句法分析模型路径，模型名称为`parser.model`
+        # parser = pyltp.Parser()  # 初始化实例
+        # parser.load(par_model_path)  # 加载模型
         # words = ['元芳', '你', '怎么', '看']
         # postags = ['nh', 'r', 'r', 'v']
+        parser = load_model('parser')
         arcs = parser.parse(words, postags)  # 句法分析
         # print("\t".join("%d:%s" % (arc.head, arc.relation) for arc in arcs))
         parser.release()  # 释放模型
@@ -67,9 +88,10 @@ class ParseDepend:
 
     def get_ner(self, words, postags):
         # 命名实体识别
-        ner_model_path = os.path.join(self.LTP_DATA_DIR, 'ner.model')  # 命名实体识别模型路径，模型名称为`pos.model`
-        recognizer = pyltp.NamedEntityRecognizer()  # 初始化实例
-        recognizer.load(ner_model_path)  # 加载模型
+        # ner_model_path = os.path.join(self.LTP_DATA_DIR, 'ner.model')  # 命名实体识别模型路径，模型名称为`pos.model`
+        # recognizer = pyltp.NamedEntityRecognizer()  # 初始化实例
+        # recognizer.load(ner_model_path)  # 加载模型
+        recognizer = load_model('ner')
         netags = recognizer.recognize(words, postags)  # 命名实体识别
         recognizer.release()  # 释放模型
         # print('\t'.join(netags))
@@ -101,12 +123,11 @@ class ParseDepend:
                 QITA = self.sentences[sen_idx][relate_word[1]: ]
                 if WEIYU in self.say_similar_words and QITA:
                     if result and  ''.join(QITA) in result[-1][-1]: continue
-                    result.append([''.join(ZHUYU), ''.join(WEIYU), ''.join(QITA)])
-
+                    result.append([''.join(ZHUYU), ''.join(WEIYU),
+                                   ''.join(QITA) if ''.join(QITA)[0] not in [',', '，'] else ''.join(QITA)[1: ]])
         if not result:
             result = ['不存在"说"相似的谓语动词']
-        print(result)
-        return result
+        return {idx: val for idx, val in enumerate(result)}
 
 
 if __name__ == '__main__':
