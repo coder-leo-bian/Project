@@ -14,9 +14,14 @@ from model.models import XinlangNews
 import numpy as np
 from SpeechExtraction.speech_extraction import ParseDepend
 from GenerationSummarize import MMR_summarize, textrank_summarize as ts
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
+from tools.LoggingConfig import config_logger
 from flask_cors import CORS
 CORS(app)
+
+
+if os.path.exists('/root/.flag'):
+    config_logger()
 
 
 @app.route('/', methods=['GET', 'POST'])

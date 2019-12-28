@@ -5,4 +5,4 @@ GenerationSummarize/*.pyc
 model/*.pyc
 SpeechExtraction/*.pyc
 tools/*.pyc
-static/keywords.png
+app/static/keywords.png
