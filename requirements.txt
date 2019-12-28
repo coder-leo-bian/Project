@@ -11,3 +11,4 @@ flask_bootstrap
 networkx
 sklearn
 tensorflow
+pymysql
