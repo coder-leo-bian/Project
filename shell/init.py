@@ -22,5 +22,5 @@ if os.path.exists('/root/manager.sh'):
     os.system('unlink /root/manager.sh')
 
 os.system('ln -s {} /root/Project'.format(mk_path))
-os.system('ln-s {}/shell/init.py /root/init.py')
-os.system('ln-s {}/shell/manager.sh /root/manager.sh')
+os.system('ln -s {}/shell/init.py /root/init.py')
+os.system('ln -s {}/shell/manager.sh /root/manager.sh')
