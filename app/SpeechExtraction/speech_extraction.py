@@ -105,7 +105,7 @@ class ParseDepend:
         return 'nan', 'nan'
 
     def get_say_similar(self):
-        with open('/Users/haha/Desktop/Project/app/static/say_word_similar', 'r') as fr:
+        with open('static/say_word_similar', 'r') as fr:
             words = fr.readlines()
         return [word.replace('\n', '') for word in words]
 

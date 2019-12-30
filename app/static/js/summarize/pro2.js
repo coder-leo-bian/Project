@@ -1,6 +1,6 @@
-// var address = 'http://localhost:9999';
+var address = 'http://localhost:9999';
 // var address = 'http://49.234.19.31:8082';
-var address = 'http://111.229.161.111/:8082';
+// var address = 'http://111.229.161.111:8082';
 
 $(function () {
     var result = {};
