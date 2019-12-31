@@ -17,6 +17,8 @@ from GenerationSummarize import MMR_summarize, textrank_summarize as ts
 logger = logging.getLogger(__name__)
 from tools.LoggingConfig import config_logger
 from flask_cors import CORS
+from Choujiang import yueduqiyuan
+import random, time
 CORS(app)
 
 
@@ -109,4 +111,18 @@ def get_shuffle_context_by_mysql():
     result['content'] = news.comment
     result['title'] = news.title
     return jsonify(result)
+
+
+@app.route('/choujiang/', methods=['GET', 'POST'])
+def choujiang():
+    return render_template('choujiang.html')
+
+@app.route('/choujiang/solve', methods=['GET', 'POST'])
+def choujiang_solve():
+    data = request.json
+    time.sleep(3)
+    title = data['title']
+    cj = yueduqiyuan.ChouJiang()
+    res = cj.start(title)
+    return jsonify({'result': res})
 
