@@ -19,7 +19,10 @@ $(function () {
     }, 80);
 
     $("#submit").click(function () {
+        $('#firstpart_g').css('height', 200)
+        $('#firstpart_g').css('padding', 23)
         $('#img').css("display", "block")
+        $('#submit').css("display", "none")
         $('.pop_con').html('<div class="popup"><p id="pop_tip">抽奖中···</p><div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 108%;"></div></div></div><div class="mask"></div>')
         var title = $(".form-control").val();
         var data = {'title': title}
@@ -35,9 +38,8 @@ $(function () {
             .done(function (dat) {
                 result = dat;
                 $('#show').text(result['result']);
+                $('.pop_con').html();
             })
-        // window.open(address + '/cjresult')  // 跳转打开一个新的窗口
-
     })
 })
 

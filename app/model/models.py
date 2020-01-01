@@ -19,4 +19,14 @@ class SpeechNews(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(5000))
 
+
+class ChouJiang(db.Model):
+    __tablename__ = 'choujiang'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    got_name = db.Column(db.String(100))
+    got_date = db.Column(db.Date())
+
+
 db.create_all()

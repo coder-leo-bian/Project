@@ -6,5 +6,5 @@ class ChouJiang:
         if name == '陈怡':
             return 'kindle'
         elif name == '宋婧':
-            return 'dior口红'
+            return 'Dior口红'
 

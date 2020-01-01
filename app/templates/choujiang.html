@@ -31,34 +31,32 @@
 <br>
 
 <!-- 文本输入栏 -->
-<div class="container">
+<div class="container" style="width: 600px">
     <div class="input-group">
-        <span class="input-group-addon" id="basic-addon1">Title</span>
-        <input type="text" class="form-control" placeholder="抽奖姓名" aria-describedby="basic-addon1">
+        <span class="input-group-addon" id="basic-addon1">姓名</span>
+        <input type="text" class="form-control"  placeholder="抽奖姓名" aria-describedby="basic-addon1">
     </div>
 
     <br>
-    <div class="jumbotron firstpart">
-        <div class="row">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div style="text-align:right;">
-                            <button id="submit" class="my-buttton" type="submit" name="" value="">开始抽奖</button>
-                        </div>
-                    </div>
+    <div class="jumbotron firstpart" id="firstpart_g">
+        <div class="col-lg-3 row">
+            <div class="container" style="height: 76px">
+                <div style="text-align-all: right;">
+                    <button id="submit" class="my-buttton" type="submit" name="" value="">开始抽奖</button>
                 </div>
             </div>
         </div>
+        <div class="col-lg-8">
+            <img src="http://5b0988e595225.cdn.sohucs.com/q_70,c_zoom,w_640/images/20190121/4b3f201350344902965a644775908c1b.gif" id="img" style="margin: auto; height: 70%; width: 70%; display: none" alt="">
+        </div>
     </div>
 </div><!-- 文本输入栏 -->
-<img src="http://5b0988e595225.cdn.sohucs.com/q_70,c_zoom,w_640/images/20190121/4b3f201350344902965a644775908c1b.gif" id="img" style="margin: auto; display: none" alt="">
 
 
 <br>
 
 <!-- 展示目录栏 -->
-<div class="container">
+<div class="container" style="width: 600px">
     <span style="font-size:24px;">抽奖结果</span>
     <hr style="border-top: 2px solid #eee;margin-top: 0px;">
     <h3 id="show"></h3>
