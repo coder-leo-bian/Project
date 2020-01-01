@@ -2,10 +2,11 @@ from view import app
 import logging
 import os
 from tools.LoggingConfig import config_logger
-
-
-# from app.models import create_app, db
-# from app.models import User, Role
+#
+#
+# from model.models import db
+#
+# db.create_all()
 # from flask.ext.script import Manager, Shell
 #
 #

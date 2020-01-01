@@ -17,17 +17,9 @@ from GenerationSummarize import MMR_summarize, textrank_summarize as ts
 logger = logging.getLogger(__name__)
 from tools.LoggingConfig import config_logger
 from flask_cors import CORS
-from Choujiang import yueduqiyuan
-import threading
 import random, time
-from multiprocessing import Process, Queue
-import queue
 CORS(app)
-jiangpin = ['欧舒丹护手霜',  'Dior口红', '欧舒丹护手霜', '欧舒丹护手霜',
-       'Dior口红', '欧舒丹护手霜', 'Dior口红', '欧舒丹护手霜']
-random.shuffle(jiangpin)
-q = queue.deque(jiangpin)
-visited = queue.Queue(100)
+
 if os.path.exists('/root/.flag'):
     config_logger()
 
@@ -127,27 +119,40 @@ def choujiang():
 @app.route('/choujiang/solve', methods=['GET', 'POST'])
 def choujiang_solve():
     data = request.json
-    # sleep_time = random.random() * 5 + random.random()
-    # time.sleep(sleep_time)
+    sleep_time = random.random() * 5 + random.random()
+    time.sleep(sleep_time)
     name = data['title']
-    if not name: return jsonify({'result': '请输入姓名'})
-    res = is_seek(name)
-    if res: return jsonify({'result': res})
-    if name == '陈怡': res = '姓名：' + name + '；' + '奖品：' + 'kindle'
-    elif name == '宋婧': res = '姓名：' + name + '；' + '奖品：' + 'Dior口红'
+    cj = ChouJiang()
+    repeat = ChouJiang.query.filter_by(got_name=name).first()
+    if repeat:
+        return jsonify({'result': '请不要重复抽奖'})
+    if name == '宋婧':
+        u = cj.query.filter_by(id=2).first()
+        u.got_name = name
+        res = '姓名：' + name + ';\n' + '奖品：' + u.name
+        db.session.add(u)
+        db.session.commit()
+    elif name == '陈怡':
+        u = cj.query.filter_by(id=1).first()
+        u.got_name = name
+        res = '姓名：' + name + ';\n' + '奖品：' + u.name
+        db.session.add(u)
+        db.session.commit()
     else:
-        try:
-            res = '姓名：' + name + '；' + '奖品：' + q.pop()
-        except IndexError:
-            res = '已经抽完奖了 21年再来吧~'
-    visited.put([name])
+        db_filter = cj.query.all()
+        random.shuffle(db_filter)
+        res = None
+        for i in db_filter:
+            if i.got_name or i.id in [1, 2]: continue
+            res = '姓名：' + name + ';\n' + '奖品：' + i.name
+            i.got_name = name
+            db.session.add(i)
+            db.session.commit()
+            break
+        if not res:
+            res = '奖品全部抽取完成'
     return jsonify({'result': res})
 
-def is_seek(name):
-    if not visited.empty():
-        seek = visited.get()
-        if name in seek:
-            res = '你已经抽过奖了 下次再来吧~'
-            return res
+
 
 
