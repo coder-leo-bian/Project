@@ -10,14 +10,13 @@ import matplotlib.pyplot as plt
 from flask import request, redirect, jsonify
 import logging, os
 import pandas as pd
-from model.models import XinlangNews, ChouJiang
+from model.models import XinlangNews
 import numpy as np
 from SpeechExtraction.speech_extraction import ParseDepend
 from GenerationSummarize import MMR_summarize, textrank_summarize as ts
 logger = logging.getLogger(__name__)
 from tools.LoggingConfig import config_logger
 from flask_cors import CORS
-import random, time
 CORS(app)
 
 if os.path.exists('/root/.flag'):
@@ -111,47 +110,6 @@ def get_shuffle_context_by_mysql():
     return jsonify(result)
 
 
-@app.route('/choujiang/', methods=['GET', 'POST'])
-def choujiang():
-    return render_template('choujiang.html')
-
-
-@app.route('/choujiang/solve', methods=['GET', 'POST'])
-def choujiang_solve():
-    data = request.json
-    sleep_time = random.random() * 5 + random.random()
-    time.sleep(sleep_time)
-    name = data['title']
-    cj = ChouJiang()
-    repeat = ChouJiang.query.filter_by(got_name=name).first()
-    if repeat:
-        return jsonify({'result': '请不要重复抽奖'})
-    if name == '宋婧':
-        u = cj.query.filter_by(id=2).first()
-        u.got_name = name
-        res = '姓名：' + name + ';\n' + '奖品：' + u.name
-        db.session.add(u)
-        db.session.commit()
-    elif name == '陈怡':
-        u = cj.query.filter_by(id=1).first()
-        u.got_name = name
-        res = '姓名：' + name + ';\n' + '奖品：' + u.name
-        db.session.add(u)
-        db.session.commit()
-    else:
-        db_filter = cj.query.all()
-        random.shuffle(db_filter)
-        res = None
-        for i in db_filter:
-            if i.got_name or i.id in [1, 2]: continue
-            res = '姓名：' + name + ';\n' + '奖品：' + i.name
-            i.got_name = name
-            db.session.add(i)
-            db.session.commit()
-            break
-        if not res:
-            res = '奖品全部抽取完成'
-    return jsonify({'result': res})
 
 
 

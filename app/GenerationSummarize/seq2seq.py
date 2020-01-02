@@ -1,6 +1,7 @@
 from keras.models import Model
 from keras.layers import LSTM, Embedding, Input, Dense
-
+from keras.preprocessing.sequence import pad_sequences
+import numpy as np
 HIDDEN_UNITS = 128
 
 
@@ -8,7 +9,10 @@ HIDDEN_UNITS = 128
 
 class Seq2Seq:
 
+    model_name = 'seq2seq'
+
     def __init__(self, config):
+        self.version = config['version'] if 'version' in config else 0
         self.input_word2idx = config['input_word2idx']
         self.input_idx2word = config['input_idx2word']
         self.target_word2idx = config['target_word2idx']
@@ -26,12 +30,12 @@ class Seq2Seq:
         self.decoder()
 
     def encoder(self):
-        encoder_inputs = Input(shape=(None,), name='encoder_name')
+        encoder_inputs = Input(shape=(None,), name='encoder_name')  # [32, 500] batch_size = 32, max_len=500
         encoder_embedding = Embedding(input_dim=self.num_input_tokens,
                                       output_dim=self.max_target_seq_length,
-                                      input_length=self.max_input_seq_length)(encoder_inputs)
+                                      input_length=self.max_input_seq_length)(encoder_inputs)  # [32, 50]
 
-        encoder_lstm = LSTM(HIDDEN_UNITS, return_state=True, name='encoder_lstm')
+        encoder_lstm = LSTM(HIDDEN_UNITS, return_state=True, name='encoder_lstm')  # [32, 10]
         encoder_outputs, encoder_state_h, encoder_state_c = encoder_lstm(encoder_embedding)
         encoder_states = [encoder_state_h, encoder_state_c]
         self.encoder_model = Model(encoder_inputs, encoder_states)
@@ -60,5 +64,29 @@ class Seq2Seq:
         decoder_outputs = decoder_dense(decoder_outputs)
         self.decoder_model = Model([decoder_inputs] + decoder_inputs_state, [decoder_outputs] + decoder_states)
 
-    def fit(self):
+    @staticmethod
+    def get_config_path(model_dir_path):
+        return model_dir_path + '/' + Seq2Seq.model_name + '-config.npy'
+
+    @staticmethod
+    def get_weight_path(model_dir_path):
+        return model_dir_path + '/' + Seq2Seq.model_name + '-weight.h5'
+
+    def content_encoding(self):
+        pass
+
+    def target_encoding(self):
+        pass
+
+    def fit(self, X_train, Y_train, X_test, Y_test, batch_size=32, epochs=10, model_dir_path=None):
+        # 1. 获取模型路径和权重路径并保存
+        config_file_path = Seq2Seq.get_config_path(model_dir_path)
+        weight_file_path = Seq2Seq.get_weight_path(model_dir_path)
+        np.save(config_file_path. self.config)
+
+        # 2. input 和 target 文本处理(输入长度 <eos> <bos>)
+
+        # 3. generate_batch
+        # 4. fit_generator
+        # 5. 保存权重
         pass
