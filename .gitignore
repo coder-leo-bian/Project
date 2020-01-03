@@ -6,3 +6,4 @@ model/*.pyc
 SpeechExtraction/*.pyc
 tools/*.pyc
 app/static/keywords.png
+*.__pycache__
