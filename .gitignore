@@ -1,3 +1,6 @@
+GenerationSummarize/__pycache__
+app/__pycache__/*
+tools/__pycache__
 .DS_Store
 .idea
 *.pyc
