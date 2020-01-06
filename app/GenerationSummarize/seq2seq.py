@@ -31,10 +31,10 @@ class Seq2Seq:
 
     def encoder(self):
         encoder_inputs = Input(shape=(None,), name='encoder_name')  # [32, 500] batch_size = 32, max_len=500
-        # 输入(batch, input_length) 输出 (batch, output_dim)
+        # 输入(batch, input_length) 输出 (batch, max_target_seq_length, output_dim)
         encoder_embedding = Embedding(input_dim=self.num_input_tokens,
                                       output_dim=self.max_target_seq_length,
-                                      input_length=self.max_input_seq_length)(encoder_inputs)  # [32, 50]
+                                      input_length=self.max_input_seq_length)(encoder_inputs)  # [32, 500, 50]
 
         encoder_lstm = LSTM(HIDDEN_UNITS, return_state=True, name='encoder_lstm')  # [32, 10]
         encoder_outputs, encoder_state_h, encoder_state_c = encoder_lstm(encoder_embedding)
