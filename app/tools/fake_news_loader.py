@@ -32,29 +32,33 @@ def fit_text(X, Y, input_seq_max_length=None, target_seq_max_length=None):
     counter_y = list()
     for sent in Y:
         sent_cut = jieba.lcut(sent)
-        sent_length = list(sent_cut)
+        sent_length = len(sent_cut)
         if sent_length > target_seq_max_length:
             sent_cut = sent_cut[: target_seq_max_length - 2]
         sent_cut = ['<BOS>'] + sent_cut + ['<EOS>']
         normal_y.append(sent_cut)
         counter_y.extend(sent_cut)
 
-    input_words = Counter(normal_x)
-    target_words = Counter(counter_y)
+    input_words = Counter([j for i in normal_x for j in i ])
+    target_words = Counter([j for i in counter_y for j in i])
 
     for idx, w in enumerate(input_words.most_common(MAX_INPUT_VOCAB_LEN)):
         input_word2idx[w[0]] = idx + 2
         input_idx2word[idx+2] = w[0]
-    input_word2idx['PAD'] = 0
-    input_word2idx['UNK'] = 1
-    input_idx2word[0] = 'PAD'
-    input_idx2word[1] = 'UNK'
+    input_word2idx['PAD'] = 1
+    input_word2idx['UNK'] = 0
+    input_idx2word[1] = 'PAD'
+    input_idx2word[0] = 'UNK'
 
     for idx, w in enumerate(target_words.most_common(MAX_TARGET_VOCAB_LEN)):
-        target_word2idx[w[0]] = idx + 1
-        target_idx2word[idx + 1] = w[0]
+        target_word2idx[w[0]] = idx + 3
+        target_idx2word[idx + 3] = w[0]
     target_word2idx['UNK'] = 0
+    target_word2idx['<BOS>'] = 1
+    target_word2idx['<EOS>'] = 2
     target_idx2word[0] = 'UNK'
+    target_idx2word[1] = '<BOS>'
+    target_idx2word[2] = '<EOS>'
 
     num_input_tokens = len(input_word2idx)
     num_target_tokens = len(target_word2idx)

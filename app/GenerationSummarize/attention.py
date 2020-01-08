@@ -10,6 +10,7 @@ HIDDEN_UNIT = 128
 
 class Encoder:
     def __init__(self, num_input_tokens, max_input_seq_length):
+        # (64, 500)
         self.inputs = Input(shape=(None,), name='encoder_inputs')
         # (64, 500, 128)
         self.embedding_outputs = Embedding(input_dim=num_input_tokens,
@@ -53,7 +54,7 @@ class Attention:
 
 class Decoder:
     def __init__(self, num_target_tokens):
-        # None, None, 2000
+        # 64, 50, 2000
         self.inputs = Input(shape=(None, num_target_tokens), name='decoder_input')
         self.attention = Attention()
         self.rnn = LSTM(HIDDEN_UNIT, return_state=True, name='decoder_lstm')

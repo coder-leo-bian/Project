@@ -2,7 +2,7 @@ import numpy as np
 import os
 from sklearn.decomposition import PCA
 import gensim
-from tools.deal_text import cut
+from app.tools.deal_text import cut
 from collections import Counter
 import pandas as pd
 
