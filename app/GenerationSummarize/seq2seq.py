@@ -158,7 +158,7 @@ class Seq2SeqAttention:
 
         model = Model([encoder_inputs, decoder_inputs], decoder_outputs)
         model.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
-        print(model.summary())
+        # print(model.summary())
         self.model = model
 
     @staticmethod
@@ -254,56 +254,6 @@ class Seq2SeqAttention:
                                            callbacks=[checkpoint])
         self.model.save_weights(weight_file_path)
 
-# {
-#     "name": "陈怡",
-#     "level": 1,
-# },
-# {
-#     "name": "王总",
-#     "level": 2,
-# },
-# {
-#     "name": "宋婧",
-#     "level": 2
-# },
-# {
-#     "name": "方总",
-#     "level": 3,
-# },
-#   {
-#     "name": "楠楠",
-#     "level": 0,
-#   },
-#
-#   {
-#     "name": "亚文",
-#     "level": 0,
-#   },
-#   {
-#     "name": "小美",
-#     "level": 0,
-#   },
-#   {
-#     "name": "王晶",
-#     "level": 0,
-#   },
-#   {
-#     "name": "刘言",
-#     "level": 0,
-#   },
-#   {
-#     "name": "Carmen",
-#     "level": 0,
-#   },
-#   {
-#     "name": "Katie",
-#     "level": 0,
-#   },
-#
-#   {
-#     "name": "Harvey",
-#     "level": 0,
-#   },
 
 if __name__ == '__main__':
     np.random.seed(42)
