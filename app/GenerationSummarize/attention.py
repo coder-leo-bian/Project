@@ -66,7 +66,6 @@ class Decoder:
         return decoder_outputs
 
 
-
 if __name__ == '__main__':
     config = {'num_input_tokens': 5000, 'max_input_seq_length': 500, 'num_target_tokens': 2000}
     encoder = Encoder(config['num_input_tokens'], config['max_input_seq_length'])
